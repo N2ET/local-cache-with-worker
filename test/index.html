@@ -1,0 +1,33 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>test worker</title>
+        <link rel="stylesheet" type="text/css" href="./common/lib/lib-index.css" />
+        
+    </head>
+    <body>
+        <img src="./common/common.png" />
+        
+        <script>
+            navigator.serviceWorker.register('./cache-worker.js', function(reg) {
+                if(reg.installing) {
+                    console.log('Service worker installing');
+                } else if(reg.waiting) {
+                    console.log('Service worker installed');
+                } else if(reg.active) {
+                    console.log('Service worker active');
+                }
+            });
+
+            window.postMessage({
+                fn: 'getCacheInfo',
+                data: {}
+            }, '*');
+
+        </script>
+        <script src="./common/common-index.js"></script>
+        <script src="./common/common-ignore.js"></script>
+        <script src="./common/lib/lib-index.js"></script>
+        <script src="./common/lib/lib-cache.js"></script>
+    </body>
+</html>
